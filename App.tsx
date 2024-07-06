@@ -30,13 +30,13 @@ const App = () => {
     async (text: string) => {
       setLoading(true);
       if (text !== '') {
-        const newTodo: Todo = {
-          id: String(Date.now()),
+        const id = await addTodo({ text, isCompleted: false });
+        let newTodo: Todo = {
+          id,
           text,
           isCompleted: false
         };
         setTodos([...todos, newTodo]);
-        await addTodo(newTodo);
       }
       setLoading(false);
     },

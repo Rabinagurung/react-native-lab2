@@ -9,11 +9,18 @@ import {
 import { db } from '../config/firebaseConfig';
 import { Todo } from '../types/Todo';
 
-export const addTodo = async (todo: Todo) => {
-  await addDoc(collection(db, 'todos'), {
-    text: todo.text,
-    isCompleted: todo.isCompleted
+export const addTodo = async ({
+  text,
+  isCompleted
+}: {
+  text: string;
+  isCompleted: boolean;
+}) => {
+  const docRef = await addDoc(collection(db, 'todos'), {
+    text: text,
+    isCompleted: isCompleted
   });
+  return docRef.id;
 };
 
 export const removeTodo = async (id: string) => {
